@@ -69,7 +69,7 @@
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 This file is a solution template for:
@@ -96,7 +96,7 @@ Style is ornate.
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
@@ -128,7 +128,7 @@ status open
 \begin_layout Plain Layout
 Muppet
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 optional, use only with long paper titles
@@ -146,7 +146,7 @@ optional, use only with long paper titles
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 If you have a file called "institution-logo-filename.xxx", where xxx is a
@@ -190,7 +190,7 @@ pgfuseimage{institution-logo}}
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 The following causes the table of contents to be shown at the beginning
@@ -384,15 +384,12 @@ map and fold
 Function Objects
 \end_layout
 
+\begin_layout Pause
+
+\end_layout
+
 \begin_layout Definition
 A function object is a function that can be manipulated as objects.
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Author1990"
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Definition
@@ -400,7 +397,7 @@ e.g.
  Comparator objects used in c++ stl sort function.
 \end_layout
 
-\begin_layout Definition
+\begin_layout Pause
 
 \end_layout
 
@@ -507,6 +504,10 @@ std::sort (myvector.begin(), myvector.end(), myobject);
 Fold
 \end_layout
 
+\begin_layout Pause
+
+\end_layout
+
 \begin_layout Definition
 Fold is a function that take a function object f and a list L as an input
  and recursively applies f to 
@@ -527,7 +528,7 @@ combine
 
 \end_layout
 
-\begin_layout Definition
+\begin_layout Pause
 
 \end_layout
 
@@ -556,6 +557,10 @@ status open
 Map
 \end_layout
 
+\begin_layout Pause
+
+\end_layout
+
 \begin_layout Definition
 Map is a function that take a function object f and a list L an input and
  applies f to each element of L to produce another list.
@@ -568,7 +573,7 @@ Map is a function that take a function object f and a list L an input and
 
 \end_layout
 
-\begin_layout Definition
+\begin_layout Pause
 
 \end_layout
 
@@ -597,6 +602,10 @@ status open
 MapReduce
 \end_layout
 
+\begin_layout Pause
+
+\end_layout
+
 \begin_layout Definition
 \begin_inset Formula $mapreduce(f_{m},f_{r},)$
 \end_inset
@@ -623,6 +632,10 @@ MapReduce folds over a sorted result of a map
 MapReduce System
 \end_layout
 
+\begin_layout Pause
+
+\end_layout
+
 \begin_layout Enumerate
 Programming model to express computations such that the resulting program
  is 
@@ -641,11 +654,11 @@ easily
 The parallelization is taken care of by an algorithm rather than a programmer.
 \end_layout
 
+\end_deeper
 \begin_layout Pause
 
 \end_layout
 
-\end_deeper
 \begin_layout Enumerate
 Associated system that allows executing programs based on the MR programming
  model on a cluster of commodity machines.
@@ -723,6 +736,10 @@ Reduce: Takes key, value list and summarizes the list.
 Execution Overview
 \end_layout
 
+\begin_layout Pause
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset Float figure
 wide false
@@ -756,301 +773,133 @@ Motivation
 Streaming Data
 \end_layout
 
+\begin_layout Pause
+
+\end_layout
+
 \begin_layout Enumerate
-Twitter firehose (Stream of public tweets in all of twitter).
- Average tweets per second 5,700
+The data continuously keeps flowing at high speed.
 \end_layout
 
 \begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
 \begin_layout Enumerate
-Computing number of tweets per topic
-\end_layout
-
-\end_deeper
-\begin_layout BeginFrame
-Make Titles Informative.
-\end_layout
-
-\begin_layout Block
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<1->
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
+Challenge: Compute summary information based on the high speed streaming
+ data
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-Untitled block.
-\end_layout
+\begin_layout Pause
 
-\begin_layout Itemize
-Shown on all slides.
 \end_layout
 
 \end_deeper
-\begin_layout ExampleBlock
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<2->
+\begin_layout Examples
+a) How to detect “hot topics” on twitter quickly, given the high speed stream
+ of all public tweets.
 \end_layout
 
-\end_inset
-
-
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\end_inset
-
-Some Example Block Title
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Itemize
-\begin_inset Formula $e^{i\pi}=-1$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $e^{i\pi/2}=i$
-\end_inset
-
-.
-\end_layout
-
-\end_deeper
-\begin_layout Subsection
-MapReduce Runtime
+\begin_layout Examples
+b) Given a foursquare checkin stream, maintain the count of checkins per
+ retailer.
 \end_layout
 
 \begin_layout BeginFrame
-Make Titles Informative.
- 
-\end_layout
-
-\begin_layout Example
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<1->
-\end_layout
-
-\end_inset
-
-On first slide.
- 
-\end_layout
-
-\begin_layout Separator
-
-\end_layout
-
-\begin_layout Example
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<2->
-\end_layout
-
-\end_inset
-
-On second slide.
-\end_layout
-
-\begin_layout Section
-Our Results/Contribution
-\end_layout
-
-\begin_layout Subsection
-Main Results
-\end_layout
-
-\begin_layout BeginFrame
-Make Titles Informative.
- 
-\end_layout
-
-\begin_layout Theorem
-On first slide.
+MapReduce deficiencies
 \end_layout
 
 \begin_layout Pause
 
 \end_layout
 
-\begin_layout Corollary
-On second slide.
-\end_layout
-
-\begin_layout BeginFrame
-Make Titles Informative.
- 
-\end_layout
-
-\begin_layout ColumnsTopAligned
-
+\begin_layout Enumerate
+MapReduce system needs to look at a snapshot of data
 \end_layout
 
 \begin_deeper
-\begin_layout Column
-5cm
+\begin_layout Enumerate
+Fresh data cannot be included in the middle of MapReduce execution
 \end_layout
 
-\begin_layout Theorem
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<1->
+\begin_layout Enumerate
+There is no such thing as a snapshot in a stream
 \end_layout
 
-\end_inset
+\begin_layout Pause
 
-In left column.
-\end_layout
-
-\begin_layout Column
-5cm
-\end_layout
-
-\begin_layout Corollary
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<2->
-\end_layout
-
-\end_inset
-
-In right column.
-\begin_inset Newline newline
-\end_inset
-
-New line
 \end_layout
 
 \end_deeper
+\begin_layout Enumerate
+Given that the input stream is high speed, the recovery from failure should
+ be very quick.
+\end_layout
+
 \begin_layout Subsection
-Basic Ideas for Proofs/Implementations
-\end_layout
-
-\begin_layout Section*
-Summary
+Muppet Framework
 \end_layout
 
 \begin_layout BeginFrame
-Summary
+Objectives
 \end_layout
 
-\begin_layout Itemize
-The
-\color none
- 
-\color red
-first main message
-\color none
- of your talk in one or two lines.
-\end_layout
-
-\begin_layout Itemize
-The
-\color none
- 
-\color red
-second main message
-\color none
- of your talk in one or two lines.
-\end_layout
-
-\begin_layout Itemize
-Perhaps a
-\color none
- 
-\color red
-third message
-\color none
-, but not more than that.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-An outlook is always optional.
-\end_layout
-
-\end_inset
-
+\begin_layout Pause
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Enumerate
+Easy to program
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Manage dynamic datastructures and make them quereable
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+High speed processing of streaming data
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Should be easy to scale up by throwing machines at the growing data size
+\end_layout
+
+\begin_layout BeginFrame
+Events and Streams
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout ExampleBlock
 \begin_inset ERT
 status open
 
 \begin_layout Plain Layout
 
-
-\backslash
-vskip0pt plus.5fill
+{Events and Streams}
 \end_layout
 
 \end_inset
@@ -1058,196 +907,281 @@ vskip0pt plus.5fill
 
 \end_layout
 
-\begin_layout Itemize
-Outlook
+\begin_layout ExampleBlock
+Event e is a tuple 
+\begin_inset Formula $<sid,ts,k,v>$
+\end_inset
+
+
+\end_layout
+
+\begin_layout ExampleBlock
+\begin_inset Formula $sid$
+\end_inset
+
+- Stream ID that the e belongs to
+\end_layout
+
+\begin_layout ExampleBlock
+\begin_inset Formula $ts$
+\end_inset
+
+- Global time stamps, to allow well defined merging of multiple streams
+\end_layout
+
+\begin_layout ExampleBlock
+\begin_inset Formula $k$
+\end_inset
+
+- key that need not be unique across events, used to group events
+\end_layout
+
+\begin_layout ExampleBlock
+\begin_inset Formula $v$
+\end_inset
+
+- value field
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Definition
+A Stream is a sequence of events in the increasing order of time stamp 
+\begin_inset Formula $ts$
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Map Function
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Enumerate
+A map function subscribes to one or more streams.
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-What we have not done yet.
-\end_layout
+\begin_layout Pause
 
-\begin_layout Itemize
-Even more stuff.
 \end_layout
 
 \end_deeper
+\begin_layout Enumerate
+Events are fed to the map function in the increasing order of time stamps
+ ts
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+A map function takes an event as an input and produces zero or more events
+ 
+\begin_inset Formula $map(event)\rightarrow event*$
+\end_inset
+
+ to various streams
+\end_layout
+
+\begin_layout BeginFrame
+Update Function
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Enumerate
+Input characteristics same as map function
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+An Update function 
+\begin_inset Formula $U(e,S_{U,k})$
+\end_inset
+
+ is also given a slate 
+\begin_inset Formula $S_{U,k}$
+\end_inset
+
+ along with the event 
+\begin_inset Formula $e$
+\end_inset
+
+ having a key 
+\begin_inset Formula $k$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+The slate 
+\begin_inset Formula $S_{U,k}$
+\end_inset
+
+ is an in memory datastructure used to keep all the summary information
+ about the events with key 
+\begin_inset Formula $k$
+\end_inset
+
+ seen by 
+\begin_inset Formula $U$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+The pair 
+\begin_inset Formula $<U,k>$
+\end_inset
+
+ uniquely identifies a slate.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset Formula $S_{U_{1},k}$
+\end_inset
+
+ and 
+\begin_inset Formula $S_{U_{2},k}$
+\end_inset
+
+ are two different slates even though the key is the same.
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Slate is 
+\begin_inset Quotes eld
+\end_inset
+
+live
+\begin_inset Quotes erd
+\end_inset
+
+ in memory datastructure that is continuously updated with the streaming
+ data
+\end_layout
+
+\begin_layout BeginFrame
+Overview
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Enumerate
+Memory less map function 
+\begin_inset Formula $map(event)\rightarrow event*$
+\end_inset
+
+ and Update function with memory
+\end_layout
+
+\begin_layout Enumerate
+Given an Update function slates partitioned based on event keys
+\end_layout
+
+\begin_layout Enumerate
+Key space associated with the slate is partitioned by the number of machines
+ running the update function.
+\end_layout
+
+\begin_layout BeginFrame
+MapUpdate Application
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Workflow.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+MapUpdate Application
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Foursquare.png
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout EndFrame
 
-\end_layout
-
-\begin_layout Section*
-\start_of_appendix
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-All of the following is optional and typically not needed.
-\end_layout
-
-\end_inset
-
-Appendix
-\end_layout
-
-\begin_layout Subsection*
-For Further Reading
-\end_layout
-
-\begin_layout BeginFrame
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-[allowframebreaks]
-\end_layout
-
-\end_inset
-
-For Further Reading
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-beamertemplatebookbibitems
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Start with overview books.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Bibliography
-\labelwidthstring References
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "Author1990"
-
-\end_inset
-
-A.
- Author.
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-newblock
-\end_layout
-
-\end_inset
-
-
-\emph on
-Handbook of Everything
-\emph default
-.
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-newblock
-\end_layout
-
-\end_inset
-
- Some Press, 1990.
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-beamertemplatearticlebibitems
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Followed by interesting articles.
- Keep the list short.
- 
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Bibliography
-\labelwidthstring References
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "Someone2002"
-
-\end_inset
-
-S.
- Someone.
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-newblock
-\end_layout
-
-\end_inset
-
- On this and that
-\emph on
-.
-
-\emph default
- 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-newblock
-\end_layout
-
-\end_inset
-
-
-\emph on
-Journal on This and That
-\emph default
-.
- 2(1):50--100, 2000.
 \end_layout
 
 \begin_layout EndFrame
