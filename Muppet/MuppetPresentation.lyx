@@ -123,7 +123,7 @@ In principle, this file can be redistributed and/or modified under the terms
 \begin_layout Title
 Muppet: MapReduce-Style processing for fast data
 \begin_inset Argument
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Muppet
@@ -142,6 +142,15 @@ optional, use only with long paper titles
 \end_inset
 
 
+\end_layout
+
+\begin_layout Author
+by Wang Lam et al.
+ 
+\begin_inset Newline newline
+\end_inset
+
+Appeared in VLDB 2012
 \end_layout
 
 \begin_layout Standard
@@ -509,7 +518,7 @@ Fold
 \end_layout
 
 \begin_layout Definition
-Fold is a function that take a function object f and a list L as an input
+Fold is a function that takes a function object f and a list L as an input
  and recursively applies f to 
 \begin_inset Quotes eld
 \end_inset
@@ -523,6 +532,19 @@ combine
 
 \begin_layout Definition
 \begin_inset Formula $fold(f,L[i:j])=f(L[i],fold(f,L[i+1:j]))$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Ask if we can make fold parallel given a list L[1...n]
+\end_layout
+
 \end_inset
 
 
@@ -562,12 +584,25 @@ Map
 \end_layout
 
 \begin_layout Definition
-Map is a function that take a function object f and a list L an input and
- applies f to each element of L to produce another list.
+Map is a function that takes a function object f and a list L as an input
+ and applies f to each element of L to produce another list.
 \end_layout
 
 \begin_layout Definition
 \begin_inset Formula $map:f,L[i,j]->[f(i),f(i+1),...,f(j)]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Ask if we can make map parallel, given a list L[1...n] at the end
+\end_layout
+
 \end_inset
 
 
@@ -625,7 +660,34 @@ MapReduce
 \end_layout
 
 \begin_layout Definition
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Ask if we can make MapReduce run in parallel
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
 MapReduce folds over a sorted result of a map
+\end_layout
+
+\begin_layout Definition
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Before MapReduce the techniques took lot of programmer time in terms of
+ development and maintainance to run the programs on cluster of computers
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout BeginFrame
@@ -671,9 +733,9 @@ n parameters.
 \end_layout
 
 \begin_layout Enumerate
-The MapReduce fairy (system) takes care of everything else.
- (Hides the details of parallelization, failures, communication between
- processes etc.)
+The MapReduce library takes care of everything else.
+ (Hides the details of parallelization, failures, complexity of communicating
+ between processes etc.)
 \end_layout
 
 \end_deeper
@@ -730,6 +792,21 @@ The MapReduce framework groups the intermediate key value pairs and produces
 \end_deeper
 \begin_layout Enumerate
 Reduce: Takes key, value list and summarizes the list.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Give few examples which could be expressed using MapReduce framework, like
+ word count, distributed grep etc.
+\end_layout
+
+\begin_layout Plain Layout
+describe what a map will be and reduce will be
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout BeginFrame
@@ -754,6 +831,63 @@ status open
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Input is divided into M pieces.
+ The reducers distribute the workload by partitioning the map output into
+ R pieces by using hashing.
+ hash(key) mod R
+\end_layout
+
+\begin_layout Plain Layout
+1) Library in the user program splits input into M pieces.
+ It starts many copies of the program on a cluster of machines
+\end_layout
+
+\begin_layout Plain Layout
+2) One copy is special called the master.
+ The rest are workers.
+ Master assigns M map tasks and R reduce tasks
+\end_layout
+
+\begin_layout Plain Layout
+3) A worker who is assigned a map task, parses key, value pairs from the
+ input and produces intermediate key, value pairs that are buffered in memory.
+\end_layout
+
+\begin_layout Plain Layout
+4) Periodically buffered intermediate data is flushed to the disk.
+ Partitioned into R regions by the partitioning function.
+ The locations of these intermediate output files are passed back to the
+ master, who is responsible for forwarding these locations to the reduce
+ workers.
+\end_layout
+
+\begin_layout Plain Layout
+5) When a reducer is notified by the master, it reads the relevant partition
+ from all the mappers and groups them into key, value list.
+ If this partition is too large then external sort is used to group the
+ data.
+ The library then passes these key, value list.
+ Here, it is possible that the given key can have a huge associated value
+ list.
+ Hence the MapReduce library provides an iterator for fetch the elements
+ from the values list.
+\end_layout
+
+\begin_layout Plain Layout
+6) When all the tasks have been finished the master wakes up the user process
+\end_layout
+
+\begin_layout Plain Layout
+Number of entries in the Master M*R intermediate files.
 \end_layout
 
 \end_inset
@@ -817,16 +951,44 @@ MapReduce deficiencies
 \end_layout
 
 \begin_layout Enumerate
-MapReduce system needs to look at a snapshot of data
+MapReduce doesn't fit in nicely for 
+\begin_inset Quotes eld
+\end_inset
+
+stream computations
+\begin_inset Quotes erd
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
 \begin_layout Enumerate
-Fresh data cannot be included in the middle of MapReduce execution
+computations that produce and consume streams of data
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Even if you imaging using MapReduce system as is, the end to end delay will
+ be unacceptable
+\end_layout
+
+\begin_layout Plain Layout
+We will need to wait till the data gathers, then the processing delay will
+ be too much
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
-There is no such thing as a snapshot in a stream
+MapReduce system needs to look at a snapshot of data
+\end_layout
+
+\begin_layout Enumerate
+Fresh data cannot be included in the middle of MapReduce execution
 \end_layout
 
 \begin_layout Pause
@@ -835,10 +997,15 @@ There is no such thing as a snapshot in a stream
 
 \end_deeper
 \begin_layout Enumerate
-Given that the input stream is high speed, the recovery from failure should
- be very quick.
+In case of machine failures MapReduce is generally slow to recover
 \end_layout
 
+\begin_deeper
+\begin_layout Enumerate
+In case of high speed streaming data, recovery should be quick
+\end_layout
+
+\end_deeper
 \begin_layout Subsection
 Muppet Framework
 \end_layout
@@ -862,7 +1029,26 @@ Easy to program
 
 \end_deeper
 \begin_layout Enumerate
-Manage dynamic datastructures and make them quereable
+Manage 
+\begin_inset Quotes eld
+\end_inset
+
+dynamic
+\begin_inset Quotes erd
+\end_inset
+
+ datastructures 
+\begin_inset Note Note
+status open
+
+\begin_layout Enumerate
+storing summary information about the streaming data readily available for
+ querying
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_deeper
@@ -882,7 +1068,15 @@ High speed processing of streaming data
 
 \end_deeper
 \begin_layout Enumerate
-Should be easy to scale up by throwing machines at the growing data size
+Should be easy to 
+\begin_inset Quotes eld
+\end_inset
+
+scale up
+\begin_inset Quotes erd
+\end_inset
+
+ by throwing machines at the growing stream rate
 \end_layout
 
 \begin_layout BeginFrame
@@ -1100,31 +1294,6 @@ live
 \end_layout
 
 \begin_layout BeginFrame
-Overview
-\end_layout
-
-\begin_layout Pause
-
-\end_layout
-
-\begin_layout Enumerate
-Memory less map function 
-\begin_inset Formula $map(event)\rightarrow event*$
-\end_inset
-
- and Update function with memory
-\end_layout
-
-\begin_layout Enumerate
-Given an Update function slates partitioned based on event keys
-\end_layout
-
-\begin_layout Enumerate
-Key space associated with the slate is partitioned by the number of machines
- running the update function.
-\end_layout
-
-\begin_layout BeginFrame
 MapUpdate Application
 \end_layout
 
@@ -1182,6 +1351,50 @@ status open
 
 \begin_layout EndFrame
 
+\end_layout
+
+\begin_layout BeginFrame
+Overview
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Enumerate
+Streaming data modeled as events 
+\begin_inset Formula $e<sid,ts,k,v>$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Memory less map function 
+\begin_inset Formula $map(event)\rightarrow event*$
+\end_inset
+
+ and Update function with memory
+\end_layout
+
+\begin_layout Enumerate
+Update function with associated slated, one slate per 
+\begin_inset Formula $U$
+\end_inset
+
+ and 
+\begin_inset Formula $k$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Key space associated with the slate 
+\begin_inset Formula $S_{U,k}$
+\end_inset
+
+ is partitioned by the number of workers running the update function.
 \end_layout
 
 \begin_layout EndFrame
